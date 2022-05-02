@@ -7,6 +7,10 @@ html, body{
     bottom: 0;
     font-family: 'Lato', sans-serif;
     font-family: 'Zen Kurenaido', sans-serif;
+    background-color: #f2f2f2;
+}
+a{
+    text-decoration: none;
 }
 h2{
     font-size: 50px;
@@ -174,4 +178,21 @@ input::placeholder{
 .container-item{
     border-bottom: 1px solid #dcdcdc;
     padding:40px 0px;
+}
+.btn {
+    padding: 8px 18px;
+    font-size: 20px;
+    text-transform: uppercase;
+    color:#ffffff;
+
+}
+.btn hover {
+    color: #ffffff;
+}
+.green{
+    background-color: #4caf50;
+}
+.green:hover{
+    background-color: #64A764;
+    transition: 0.20 ease-in-out;
 }
