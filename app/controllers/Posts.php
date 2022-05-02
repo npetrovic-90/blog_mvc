@@ -68,8 +68,68 @@ class Posts extends Controller {
         $this->view('posts/create',$data);
     }
 
-    public function update(){
+    public function update($id){
 
+        $post=$this->postModel->findPostById($id);
+
+        if(!isLoggedIn()){
+            header("location: ".URLROOT."/posts");
+        }elseif($post->user_id != $_SESSION['user_id']){
+            header("location: ".URLROOT."/posts");
+        }
+
+        $data = [
+
+            'post'=>$post,
+            'title'=>'',
+            'body'=>'',
+            'titleError'=>'',
+            'bodyError'=>''
+        ];
+
+        if($_SERVER['REQUEST_METHOD']=='POST'){
+
+            $_POSt=filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
+
+            $data=[
+                'id'=>$id,
+                'post'=>$post,
+                'user_id'=>$_SESSION['user_id'],
+                'title'=>trim($_POST['title']),
+                'body'=>trim($_POST['body']),
+                'titleError'=>'',
+                'bodyError'=>''
+            ];
+
+            if(empty($data['title'])){
+                $data['titleError']='Title of a post can not be empty';
+            }
+
+            if(empty($data['body'])){
+                $data['bodyError']='Body of a post can not be empty';
+            }
+
+            if($data['title']==$this->postModel->findPostById($id)->title){
+                $data['titleError']=="At least change the title!";
+            }
+
+            if($data['body']==$this->postModel->findPostById($id)->body){
+                $data['bodyError']=="At least change the body!";
+            }
+
+            if(empty($data['titleError']) && empty($data['bodyError'])){
+
+                if($this->postModel->updatePost($data)){
+                    header("location: " . URLROOT . "/posts");
+                } else {
+                    die("Something went wrong, please try again!");
+                }
+            }else{
+                $this->view('posts/update',$data);
+            }
+        }
+
+        $this->view('posts/update',$data);
     }
 
     public function delete(){

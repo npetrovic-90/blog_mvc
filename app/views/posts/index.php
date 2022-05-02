@@ -10,11 +10,19 @@
 
 <div class="container">
     <?php if(isLoggedIn()):?>
-        <a class="btn green" href="<?php echo URLROOT;?>/posts/create">Create</a>
+        <a class="btn green" href="<?php echo URLROOT;?>/posts/create">
+        Create
+        </a>
 
     <?php endif;?>
 <?php foreach ($data['posts']as $post): ?>
     <div class="container-item">
+        <?php if(isset($_SESSION['user_id']) && $_SESSION['user_id']==$post->user_id):?>
+
+            <a class="btn orange" href="<?php echo URLROOT."/posts/update/".$post->id?>">
+            Update
+            </a>
+        <?php endif; ?>
         <h2>
             <?php echo $post->title;?>
         </h2>

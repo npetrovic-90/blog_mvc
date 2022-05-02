@@ -32,4 +32,30 @@ class Post {
             return false;
         }
     }
+    public function findPostById($id){
+        //prepare statement
+        $this->db->query('SELECT * FROM posts WHERE id=:id');
+
+        //bind values
+        $this->db->bind(':id',$id);
+
+        $row=$this->db->single();
+
+        return $row;
+    }
+
+    public function updatePost($data){
+        //prepare statement
+        $this->db->query('UPDATE posts SET title=:title, body=:body WHERE id=:id');
+        //bind values
+        $this->db->bind(':id',$data['id']);
+        $this->db->bind(':title',$data['title']);
+        $this->db->bind(':body',$data['body']);
+        //execute statement
+        if($this->db->execute()){
+            return true;
+        }else{
+            return false;
+        }
+    }
 }
