@@ -185,6 +185,7 @@ input::placeholder{
     text-transform: uppercase;
     color:#ffffff;
 
+
 }
 .btn hover {
     color: #ffffff;
@@ -227,5 +228,11 @@ textarea{
 .orange{
     background-color: orange;
     color:#000000;
+    float: right;
+}
+
+.red {
+    background-color: #ff0000;
+    margin:0px 20px;
     float: right;
 }

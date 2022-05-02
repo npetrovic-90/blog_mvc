@@ -132,7 +132,32 @@ class Posts extends Controller {
         $this->view('posts/update',$data);
     }
 
-    public function delete(){
+    public function delete($id){
 
+        $post=$this->postModel->findPostById($id);
+
+        if(!isLoggedIn()){
+            header("location: ".URLROOT."/posts");
+        }elseif($post->user_id != $_SESSION['user_id']){
+            header("location: ".URLROOT."/posts");
+        }
+
+        $data = [
+
+            'post'=>$post,
+            'title'=>'',
+            'body'=>'',
+            'titleError'=>'',
+            'bodyError'=>''
+        ];
+
+        if($_SERVER['REQUEST_METHOD']=='POST'){
+
+            if($this->postModel->deletePost($id)){
+                header("location: " . URLROOT . "/posts");
+            }else{
+                die("Something went wrong!");
+            }
+        }
     }
 }

@@ -22,6 +22,9 @@
             <a class="btn orange" href="<?php echo URLROOT."/posts/update/".$post->id?>">
             Update
             </a>
+            <form action="<?php echo URLROOT."/posts/delete/".$post->id?>" method="POST">
+                <button type="submit" name="delete" value="Delete" class="btn red">Delete</button>
+            </form>
         <?php endif; ?>
         <h2>
             <?php echo $post->title;?>
